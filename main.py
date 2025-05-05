@@ -16,6 +16,20 @@ class Category:
     def get_recipes(self):
         recipes = []
         current_url = self.url
+        while current_url:
+            response = requests.get(current_url)
+            if response.status_code != 200:
+                print(f"Neizdevās ielādēt lapu. Statusa kods: {response.status_code}")
+                break
+            soup = BeautifulSoup(response.content, "html.parser")
+            recipe_cards = soup.find_all("h2", class_="entry-title")
+            for card in recipe_cards:
+                title_link = card.find("a")
+                if title_link:
+                    recipes.append(Recipe(title_link.text.strip(), title_link["href"]))
+            next_page_link = soup.find("a", string="« Older Entries")
+            current_url = next_page_link["href"] if next_page_link and "href" in next_page_link.attrs else None
+        return recipes
 
 def main():
     categories = [
