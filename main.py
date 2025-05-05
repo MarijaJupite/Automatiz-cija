@@ -42,6 +42,12 @@ def main():
     selected_category = categories[choice - 1]
     print(f"\nNotiek recepšu ielāde: {selected_category.name}...\n")
     recipes = selected_category.get_recipes()
+    if recipes:
+        print(f"\nKategorijā '{selected_category.name}' atrastas {len(recipes)} receptes:\n")
+        for i, recipe in enumerate(recipes, 1):
+            print(f"{i}. {recipe}")
+    else:
+        print("Neizdevās atrast receptes")
   
 if __name__ == "__main__":
     main()
