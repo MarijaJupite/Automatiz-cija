@@ -15,32 +15,37 @@ class Category:
         self.url = url
 
     def get_recipes(self):
-        recipes = []
+        self.recipes = []
         current_url = self.url
-
         while current_url:
-            response = requests.get(current_url)
-            if response.status_code != 200:
-                print(f"Neizdevās ielādēt lapu. Statusa kods: {response.status_code}")
+            try:
+                response=response.raise_for_status()
+                soup = BeautifulSoup(response.content, "html.parser")
+                recipe_cards = soup.find_all("h2", class_="entry-title")
+                for card in recipe_cards:
+                    title_link = card.find("a")
+                    if title_link:
+                        self.recipes.append(Recipe(title_link.text.strip(), title_link["href"]))
+
+                next_page_link = soup.find("a", string="« Older Entries")
+                if next_page_link and "href" in next_page_link.attrs:
+                    current_url = next_page_link["href"]
+                else:
+                    break
+            except requests.exceptions.RequestException as e:
+                print(f"Neizdevās ielādēt lapu {current_url}. Kļūda: {e}")
                 break
+        return self.recipes
 
-            soup = BeautifulSoup(response.content, "html.parser")
-            recipe_cards = soup.find_all("h2", class_="entry-title")
-
-            for card in recipe_cards:
-                title_link = card.find("a")
-                if title_link:
-                    recipe = Recipe(title_link.text.strip(), title_link["href"])
-                    recipes.append(recipe)
-
-            next_page_link = soup.find("a", string="« Older Entries")
-            if next_page_link and "href" in next_page_link.attrs:
-                current_url = next_page_link["href"]
-            else:
-                break
-
-        return recipes
-
+def display_recipes(recipes):
+    if recipes:
+        for i, recipe in enumerate(recipes, 1):
+            print(f"{i}. {recipe}")
+        return True
+    else:
+        print("Šajā kategorijā nav recepšu.")
+        return False
+        
 def main():
     categories = [
         Category("Brokastis", "https://www.garsigalatvija.lv/receptes/brokastis/"),
