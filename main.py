@@ -1,11 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-class Recipe:
-    def __init__(self, title, url):
-        self.title = title
-        self.url = url
-
 class Recipe: 
     def __init__(self, title, url): #done
         self.title = title 
