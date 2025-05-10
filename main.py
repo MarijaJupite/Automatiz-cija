@@ -62,7 +62,7 @@ class Category:
         self.name = name
         self.url = url
 
-    def get_recipes(self): #good, done
+    def get_recipes(self): #done
         self.recipes = []
         current_url = self.url
         while current_url:
@@ -115,6 +115,11 @@ def handle_recipe_selection(recipes):
                 print("Nepareiza ievade.")
         except ValueError:
             print("Lūdzu, ievadiet skaitli vai 0.")
+
+def get_selected_item(items, choice): #done
+    if isinstance(choice, int) and 1 <= choice <= len(items): 
+        return items[choice - 1] 
+    return None 
         
 def main():
     categories = [
@@ -132,26 +137,29 @@ def main():
         Category("Ziemai", "https://www.garsigalatvija.lv/receptes/ziemai/"),
     ]
 
-    print("Izvēlieties kategoriju no saraksta:")
-    for i, category in enumerate(categories, 1):
-        print(f"{i}. {category.name}")
+    while True:
+        print("\nIzvēlieties kategoriju no saraksta: ")
+        for i, category in enumerate(categories, 1):
+            print(f"{i}. {category.name}")
+        print("-1. Iziet")
 
-    choice = int(input("Ievadiet numuru no 1 līdz 12: "))
-    if choice < 1 or choice > len(categories):
-        print("Nepareiza izvēle!")
-        return
-
-    selected_category = categories[choice - 1]
-    print(f"\nNotiek recepšu ielāde no kategorijas: {selected_category.name}...\n")
-
-    recipes = selected_category.get_recipes()
-
-    if recipes:
-        print(f"\nKategorijā '{selected_category.name}' atrastas {len(recipes)} receptes:\n")
-        for i, recipe in enumerate(recipes, 1):
-            print(f"{i}. {recipe}")
-    else:
-        print("Neizdevās atrast receptes.")
+        try:
+            choice = input("Ievadiet numuru: ")
+            if choice == "-1":
+                break
+            elif choice.isdigit():
+                choice = int(choice)
+                if 1 <= choice <= len(categories):
+                    selected_category = categories[choice - 1]
+                    recipes = selected_category.get_recipes()
+                    display_recipes(recipes)
+                    handle_recipe_selection(recipes)
+                else:
+                    print("Nepareiza izvēle.")
+            else:
+                print("Nepareiza ievade.")
+        except ValueError:
+            print("Lūdzu, ievadiet skaitli.")
 
 if __name__ == "__main__":
     main()
