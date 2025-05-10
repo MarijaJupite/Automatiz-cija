@@ -11,17 +11,17 @@ class Recipe:
         return f"{self.title} - {self.url}"
     
     def fetch_ingredients(self):
-        if self.ingredients:
-            return self.ingredients
         try:
             response = requests.get(self.url)
             response.raise_for_status()
             soup = BeautifulSoup(response.content, "html.parser")
-            ingredient_elements = soup.select("div.sastavdalas li")
-            self.ingredients = [el.get_text(strip=True) for el in ingredient_elements]
+            self.ingredients = self._extract_ingredients(soup)
+            if not self.ingredients:
+                print(f"Neizdevās atrast sastāvdaļu sarakstu lapā {self.url}.")
+            return self.ingredients
         except requests.exceptions.RequestException as e:
-            print(f"Kļūda ielādējot sastāvdaļas: {e}")
-        return self.ingredients
+            print(f"Neizdevās ielādēt recepti no {self.url}. Kļūda: {e}")
+            return None
         
     def _extract_ingredients(self, soup):
         selectors = [
@@ -56,6 +56,7 @@ class Category:
     def __init__(self, name, url):
         self.name = name
         self.url = url
+        self.recepies = []
 
     def get_recipes(self):
         self.recipes = []
@@ -70,6 +71,7 @@ class Category:
                     title_link = card.find("a")
                     if title_link:
                         self.recipes.append(Recipe(title_link.text.strip(), title_link["href"]))
+
                 next_page_link = soup.find("a", string="« Older Entries")
                 if next_page_link and "href" in next_page_link.attrs:
                     current_url = next_page_link["href"]
@@ -90,6 +92,7 @@ def display_recipes(recipes):
         return False
 
 def handle_recipe_selection(recipes):
+    selected_recipe = None
     while recipes:
         try:
             choice = input("\nIzvēlieties receptes numuru, lai redzētu sastāvdaļas (vai 0 lai atgriezties atpakaļ uz kategorijām): ")
