@@ -151,9 +151,14 @@ def main():
                 choice = int(choice)
                 if 1 <= choice <= len(categories):
                     selected_category = categories[choice - 1]
+                    print(f"\nNotiek recepšu ielāde: {selected_category.name}...\n")
                     recipes = selected_category.get_recipes()
                     display_recipes(recipes)
                     handle_recipe_selection(recipes)
+                elif choice == 0:
+                    print("\nJūsu izlases receptes:\n")
+                    display_favorites(favorites)
+                    handle_favorite_selection(favorites)
                 else:
                     print("Nepareiza izvēle.")
             else:
