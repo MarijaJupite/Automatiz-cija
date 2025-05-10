@@ -1,3 +1,4 @@
+# Darja Kučerenko 241RDB126 1.grupa  
 import requests
 from bs4 import BeautifulSoup
 
