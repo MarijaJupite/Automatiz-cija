@@ -22,6 +22,35 @@ class Recipe:
         except requests.exceptions.RequestException as e:
             print(f"Kļūda ielādējot sastāvdaļas: {e}")
         return self.ingredients
+        
+    def _extract_ingredients(self, soup):
+        selectors = [
+            (".et_pb_row_inner.et_pb_row_inner_2", ['ul', 'ol'], None),
+            (".et_pb_row_inner.et_pb_row_inner_1", ['ul', 'ol'], "span"),
+            (".et_pb_column_inner_2 .et_pb_text_inner ul", ['li'], None),
+        ]
+        for selector, list_tags, span_tag in selectors:
+            container = soup.select_one(selector)
+            if container:
+                ingredients = []
+                for list_container in container.find_all(list_tags):
+                    for item in list_container.find_all("li"):
+                        if span_tag:
+                            span = item.find(span_tag)
+                            ingredients.append(span.text.strip() if span else item.text.strip())
+                        else:
+                            ingredients.append(item.text.strip())
+                if ingredients:
+                    return ingredients
+
+        keywords = ["Sastāvdaļas", "Ingredienti", "Kas nepieciešams"]
+        for keyword in keywords:
+            keyword_element = soup.find(lambda tag: tag.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div'] and keyword in tag.text)
+            if keyword_element:
+                ingredients_list_container = keyword_element.find_next(['ul', 'ol'])
+                if ingredients_list_container:
+                    return [item.text.strip() for item in ingredients_list_container.find_all("li")]
+        return []
 
 class Category:
     def __init__(self, name, url):
