@@ -6,7 +6,13 @@ class Recipe:
         self.title = title
         self.url = url
 
-    def __str__(self):
+class Recipe: 
+    def __init__(self, title, url): #done
+        self.title = title 
+        self.url = url 
+        self.ingredients = [] 
+        
+    def __str__(self): #done
         return f"{self.title} - {self.url}"
         
     def fetch_ingredients(self): #okk
