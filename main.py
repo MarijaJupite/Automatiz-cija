@@ -9,48 +9,6 @@ class Recipe:
         
     def __str__(self): #done
         return f"{self.title} - {self.url}"
-        
-    def fetch_ingredients(self): #okk
-        try:
-            response = requests.get(self.url)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.content, "html.parser")
-            self.ingredients = self._extract_ingredients(soup)
-            if not self.ingredients:
-                print(f"Neizdevās atrast sastāvdaļu sarakstu lapā {self.url}.")
-            return self.ingredients
-        except requests.exceptions.RequestException as e:
-            print(f"Neizdevās ielādēt recepti no {self.url}. Kļūda: {e}")
-            return None
-            
-    def _extract_ingredients(self, soup): #good
-        selectors = [
-            (".et_pb_row_inner.et_pb_row_inner_2", ['ul', 'ol'], None),
-            (".et_pb_row_inner.et_pb_row_inner_1", ['ul', 'ol'], "span"),
-            (".et_pb_column_inner_2 .et_pb_text_inner ul", ['li'], None),
-        ]
-        for selector, list_tags, span_tag in selectors:
-            container = soup.select_one(selector)
-            if container:
-                ingredients = []
-                for list_container in container.find_all(list_tags):
-                    for item in list_container.find_all("li"):
-                        if span_tag:
-                            span = item.find(span_tag)
-                            ingredients.append(span.text.strip() if span else item.text.strip())
-                        else:
-                            ingredients.append(item.text.strip())
-                if ingredients:
-                    return ingredients
-
-        keywords = ["Sastāvdaļas", "Ingredienti", "Kas nepieciešams"]
-        for keyword in keywords:
-            keyword_element = soup.find(lambda tag: tag.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div'] and keyword in tag.text)
-            if keyword_element:
-                ingredients_list_container = keyword_element.find_next(['ul', 'ol'])
-                if ingredients_list_container:
-                    return [item.text.strip() for item in ingredients_list_container.find_all("li")]
-        return []
 
 class Category:
     def __init__(self, name, url): #done
@@ -150,10 +108,6 @@ def main():
                     recipes = selected_category.get_recipes()
                     display_recipes(recipes)
                     handle_recipe_selection(recipes)
-                elif choice == 0:
-                    print("\nJūsu izlases receptes:\n")
-                    display_favorites(favorites)
-                    handle_favorite_selection(favorites)
                 else:
                     print("Nepareiza izvēle.")
             else:
