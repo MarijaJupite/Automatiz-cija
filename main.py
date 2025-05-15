@@ -1,4 +1,5 @@
-# Darja Kučerenko 241RDB126 1.grupa  
+# Darja Kučerenko 241RDB126 1.grupa
+# Marija Jupite 241RDB067 5.grupa
 import requests
 from bs4 import BeautifulSoup
 
