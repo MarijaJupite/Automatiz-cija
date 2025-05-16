@@ -2,6 +2,10 @@
 # Marija Jupite 241RDB067 5.grupa
 import requests
 from bs4 import BeautifulSoup
+import json
+import os
+
+FAVORITES_FILE = "favorites.json"
 
 class Recipe: 
     def __init__(self, title, url):
@@ -54,6 +58,21 @@ class Recipe:
                     return [item.text.strip() for item in ingredients_list_container.find_all("li")]
         return []
 
+def load_favorites():
+    if os.path.exists(FAVORITES_FILE):
+        try:
+            with open(FAVORITES_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            print("Kļūda, atverot izlases failu. Tas var būt bojāts.")
+            return []
+    return []
+
+def save_favorites(favorites):
+    with open(FAVORITES_FILE, "w", encoding="utf-8") as f:
+        json.dump(favorites, f, indent=4, ensure_ascii=False)
+
+
 class Category:
     def __init__(self, name, url):
         self.name = name
@@ -93,30 +112,26 @@ def display_recipes(recipes):
         print("Šajā kategorijā nav recepšu.")
         return False
 
-def handle_recipe_selection(recipes):
-    selected_recipe = None
+def handle_recipe_selection(recipes, favorites):
+    selected_recipe = None  
     while recipes:
         try:
-            choice = input("\nIzvēlieties receptes numuru, lai redzētu sastāvdaļas (vai 0 lai atgriezties atpakaļ uz kategorijām): ")
+            choice = input("\nIzvēlieties receptes numuru, lai redzētu sastāvdaļas (vai 'f' - pievienot izlasei, 0 - atpakaļ uz kategorijām): ")
             if choice == "0":
                 break
-            elif choice.isdigit():
-                recipe_choice = int(choice)
-                selected_recipe = get_selected_item(recipes, recipe_choice)
+            elif choice == "f":
                 if selected_recipe:
-                    print(f"\nSastāvdaļas receptei '{selected_recipe.title}':\n")
-                    ingredients = selected_recipe.fetch_ingredients()
-                    if ingredients:
-                        for ingredient in ingredients:
-                            print(f"- {ingredient}")
+                    if any(fav['url'] == selected_recipe.url for fav in favorites):
+                        print(f"Recepte '{selected_recipe.title}' jau ir izlasē.")
                     else:
-                        print("Sastāvdaļas nav atrastas.")
+                        favorites.append({"title": selected_recipe.title, "url": selected_recipe.url})
+                        save_favorites(favorites)
+                        print(f"Recepte '{selected_recipe.title}' pievienota izlasei.")
                 else:
-                    print("Nepareiza izvēle.")
-            else:
-                print("Nepareiza ievade.")
+                    print("Vispirms izvēlieties receptes numuru.")
         except ValueError:
-            print("Lūdzu, ievadiet skaitli vai 0.")
+            print("Lūdzu, ievadiet skaitli, 'f' vai 0.")
+
 
 def get_selected_item(items, choice):
     if isinstance(choice, int) and 1 <= choice <= len(items): 
@@ -138,11 +153,14 @@ def main():
         Category("Dzērieni", "https://www.garsigalatvija.lv/receptes/dzerieni/"),
         Category("Ziemai", "https://www.garsigalatvija.lv/receptes/ziemai/"),
     ]
+    
+    favorites = load_favorites()
 
     while True:
         print("\nIzvēlieties kategoriju no saraksta: ")
         for i, category in enumerate(categories, 1):
             print(f"{i}. {category.name}")
+        print(f"0. Skatīt izlasi ({len(favorites)})")
         print("-1. Iziet")
 
         try:
@@ -155,8 +173,11 @@ def main():
                     selected_category = categories[choice - 1]
                     print(f"\nNotiek recepšu ielāde: {selected_category.name}...\n")
                     recipes = selected_category.get_recipes()
-                    if display_recipes(recipes):
-                        handle_recipe_selection(recipes)
+                    display_recipes(recipes)
+                    handle_recipe_selection(recipes, favorites)
+                elif choice == 0:
+                    print("\nJūsu izlases receptes:\n")
+                    handle_favorite_selection(favorites)
                 else:
                     print("Nepareiza izvēle.")
             else:
