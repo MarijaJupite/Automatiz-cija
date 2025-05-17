@@ -129,8 +129,51 @@ def handle_recipe_selection(recipes, favorites):
                         print(f"Recepte '{selected_recipe.title}' pievienota izlasei.")
                 else:
                     print("Vispirms izvēlieties receptes numuru.")
+            elif choice.isdigit():
+                recipe_choice = int(choice)
+                if selected_recipe := get_selected_item(recipes, recipe_choice):
+                    print(f"\nSastāvdaļas receptei '{selected_recipe.title}':\n")
+                    ingredients = selected_recipe.fetch_ingredients()
+                    if ingredients:
+                        for ingredient in ingredients:
+                            print(f"- {ingredient}")
+                else:
+                    print("Nepareiza izvēle.")
+            else:
+                print("Nepareiza ievade.")
         except ValueError:
             print("Lūdzu, ievadiet skaitli, 'f' vai 0.")
+
+
+def display_favorites(favorites):
+    if favorites:
+        for i, favorite in enumerate(favorites, 1):
+            print(f"{i}. {favorite['title']} - {favorite['url']}")
+        return True
+    else:
+        print("Jūsu izlases saraksts ir tukšs.")
+        return False
+
+
+def handle_favorite_selection(favorites):
+    while favorites:
+        try:
+            choice = input("\nIzvēlieties receptes numuru, lai redzētu sastāvdaļas (vai 'd' - dzēst no izlases, 0 - atpakaļ uz kategorijām): ")
+            if choice == "0":
+                break
+            elif choice == "d":
+                remove_choice = input("Ievadiet receptes numuru, ko dzēst no izlases: ")
+                if remove_choice.isdigit():
+                    remove_index = int(remove_choice) - 1
+                    if 0 <= remove_index < len(favorites):
+                        removed_favorite = favorites.pop(remove_index)
+                        save_favorites(favorites)
+                        print(f"Recepte '{removed_favorite['title']}' dzēsta no izlases.")
+                        display_favorites(favorites)
+                    else:
+                        print("Nepareiza izvēle.")
+                else:
+                    print("Nepareiza ievade.")
             elif choice.isdigit():
                 fav_choice = int(choice)
                 if 1 <= fav_choice <= len(favorites):
