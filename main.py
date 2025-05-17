@@ -131,6 +131,23 @@ def handle_recipe_selection(recipes, favorites):
                     print("Vispirms izvēlieties receptes numuru.")
         except ValueError:
             print("Lūdzu, ievadiet skaitli, 'f' vai 0.")
+            elif choice.isdigit():
+                fav_choice = int(choice)
+                if 1 <= fav_choice <= len(favorites):
+                    selected_favorite = favorites[fav_choice - 1]
+                    recipe = Recipe(selected_favorite['title'], selected_favorite['url'])
+                    print(f"\nSastāvdaļas receptei '{recipe.title}':\n")
+                    ingredients = recipe.fetch_ingredients()
+                    if ingredients:
+                        for ingredient in ingredients:
+                            print(f"- {ingredient}")
+                else:
+                    print("Nepareiza izvēle.")
+            else:
+                print("Nepareiza ievade.")
+        except ValueError:
+            print("Lūdzu, ievadiet skaitli, 'd' vai 0.")
+
 
 
 def get_selected_item(items, choice):
