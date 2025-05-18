@@ -162,8 +162,10 @@ def handle_favorite_selection(favorites):
 
         try:
             choice = input("\nIzvēlieties receptes numuru, lai redzētu sastāvdaļas (vai 'd' - dzēst no izlases, 0 - atpakaļ uz kategorijām): ")
+            
             if choice == "0":
                 break
+                
             elif choice == "d":
                 remove_choice = input("Ievadiet receptes numuru, ko dzēst no izlases: ")
                 if remove_choice.isdigit():
@@ -176,6 +178,7 @@ def handle_favorite_selection(favorites):
                         print("Nepareiza izvēle.")
                 else:
                     print("Nepareiza ievade.")
+                    
             elif choice.isdigit():
                 fav_choice = int(choice)
                 if 1 <= fav_choice <= len(favorites):
