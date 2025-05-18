@@ -207,8 +207,8 @@ def get_selected_item(items, choice):
         
 def main():
     categories = [
-        Category("Brokastis", "https://www.garsigalatvija.lv/receptes/brokastis/"),
-        Category("Zupas", "https://www.garsigalatvija.lv/receptes/zupas/"),
+        Category("Brokastis", "https://www.garsigalatvija.lv/receptes/brokastis/"), 
+        Category("Zupas", "https://www.garsigalatvija.lv/receptes/zupas/"),  
         Category("Pamatēdieni", "https://www.garsigalatvija.lv/receptes/pamatedieni/"),
         Category("Piedevas", "https://www.garsigalatvija.lv/receptes/piedevas/"),
         Category("Salāti", "https://www.garsigalatvija.lv/receptes/salati/"),
