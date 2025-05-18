@@ -3,7 +3,6 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import os
 
 FAVORITES_FILE = "favorites.json"
 
@@ -59,14 +58,15 @@ class Recipe:
         return []
 
 def load_favorites():
-    if os.path.exists(FAVORITES_FILE):
-        try:
-            with open(FAVORITES_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except json.JSONDecodeError:
-            print("Kļūda, atverot izlases failu. Tas var būt bojāts.")
-            return []
-    return []
+    try:
+        with open(FAVORITES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        print("Kļūda, atverot izlases failu. Tas var būt bojāts.")
+        return []
+
 
 def save_favorites(favorites):
     with open(FAVORITES_FILE, "w", encoding="utf-8") as f:
