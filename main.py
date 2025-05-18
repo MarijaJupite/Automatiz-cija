@@ -77,7 +77,7 @@ class Category:
     def __init__(self, name, url):
         self.name = name
         self.url = url
-        self.recepies = []
+        self.recipes = []
 
     def get_recipes(self):
         self.recipes = []
@@ -113,8 +113,8 @@ def display_recipes(recipes):
         return False
 
 def handle_recipe_selection(recipes, favorites):
-    selected_recipe = None  
-    while recipes:
+  selected_recipe = None  
+  while recipes:
         try:
             choice = input("\nIzvēlieties receptes numuru, lai redzētu sastāvdaļas (vai 'f' - pievienot izlasei, 0 - atpakaļ uz kategorijām): ")
             if choice == "0":
@@ -145,6 +145,7 @@ def handle_recipe_selection(recipes, favorites):
             print("Lūdzu, ievadiet skaitli, 'f' vai 0.")
 
 
+
 def display_favorites(favorites):
     if favorites:
         for i, favorite in enumerate(favorites, 1):
@@ -157,6 +158,8 @@ def display_favorites(favorites):
 
 def handle_favorite_selection(favorites):
     while favorites:
+        display_favorites(favorites)  
+
         try:
             choice = input("\nIzvēlieties receptes numuru, lai redzētu sastāvdaļas (vai 'd' - dzēst no izlases, 0 - atpakaļ uz kategorijām): ")
             if choice == "0":
@@ -169,7 +172,6 @@ def handle_favorite_selection(favorites):
                         removed_favorite = favorites.pop(remove_index)
                         save_favorites(favorites)
                         print(f"Recepte '{removed_favorite['title']}' dzēsta no izlases.")
-                        display_favorites(favorites)
                     else:
                         print("Nepareiza izvēle.")
                 else:
@@ -191,6 +193,8 @@ def handle_favorite_selection(favorites):
         except ValueError:
             print("Lūdzu, ievadiet skaitli, 'd' vai 0.")
 
+    if not favorites:
+        print("Jūsu izlases saraksts ir tukšs.")
 
 
 def get_selected_item(items, choice):
