@@ -6,6 +6,50 @@ import json
 
 FAVORITES_FILE = "favorites.json"
 
+# satur kategorijas nosaukumu, URL un receptes
+class Category:
+    def __init__(self, name, url):
+        self.name = name
+        self.url = url
+        self.recipes = []
+
+# ielādē visas receptes no kategorijas, izejot cauri lapām
+    def get_recipes(self):
+        self.recipes = []
+        current_url = self.url
+        while current_url:
+            try:
+                response = requests.get(current_url)
+                response.raise_for_status()
+                soup = BeautifulSoup(response.content, "html.parser")
+                recipe_cards = soup.find_all("h2", class_="entry-title")
+                for card in recipe_cards:
+                    title_link = card.find("a")
+                    if title_link:
+                        self.recipes.append(Recipe(title_link.text.strip(), title_link["href"]))
+          
+            # meklē saiti uz nākamo lapu ar receptēm
+                next_page_link = soup.find("a", string="« Older Entries")
+                if next_page_link and "href" in next_page_link.attrs:
+                    current_url = next_page_link["href"]
+                else:
+                    break
+            except requests.exceptions.RequestException as e:
+                print(f"Neizdevās ielādēt lapu {current_url}. Kļūda: {e}")
+                break
+        return self.recipes
+        
+# izvada receptes sarakstu uz ekrāna
+def display_recipes(recipes):
+    if recipes:
+        for i, recipe in enumerate(recipes, 1):
+            print(f"{i}. {recipe}")
+        return True
+    else:
+        print("Šajā kategorijā nav recepšu.")
+        return False
+    
+
 # satur receptes nosaukumu, URL un sastāvdaļas
 class Recipe: 
     def __init__(self, title, url):
@@ -62,49 +106,6 @@ class Recipe:
                 if ingredients_list_container:
                     return [item.text.strip() for item in ingredients_list_container.find_all("li")]
         return []
-
-# satur kategorijas nosaukumu, URL un receptes
-class Category:
-    def __init__(self, name, url):
-        self.name = name
-        self.url = url
-        self.recipes = []
-
-# ielādē visas receptes no kategorijas, izejot cauri lapām
-    def get_recipes(self):
-        self.recipes = []
-        current_url = self.url
-        while current_url:
-            try:
-                response = requests.get(current_url)
-                response.raise_for_status()
-                soup = BeautifulSoup(response.content, "html.parser")
-                recipe_cards = soup.find_all("h2", class_="entry-title")
-                for card in recipe_cards:
-                    title_link = card.find("a")
-                    if title_link:
-                        self.recipes.append(Recipe(title_link.text.strip(), title_link["href"]))
-          
-            # meklē saiti uz nākamo lapu ar receptēm
-                next_page_link = soup.find("a", string="« Older Entries")
-                if next_page_link and "href" in next_page_link.attrs:
-                    current_url = next_page_link["href"]
-                else:
-                    break
-            except requests.exceptions.RequestException as e:
-                print(f"Neizdevās ielādēt lapu {current_url}. Kļūda: {e}")
-                break
-        return self.recipes
-        
-# izvada receptes sarakstu uz ekrāna
-def display_recipes(recipes):
-    if recipes:
-        for i, recipe in enumerate(recipes, 1):
-            print(f"{i}. {recipe}")
-        return True
-    else:
-        print("Šajā kategorijā nav recepšu.")
-        return False
         
 # apstrādā lietotāja izvēli receptēm (skats, pievienošana izlasei)
 def handle_recipe_selection(recipes, favorites):
