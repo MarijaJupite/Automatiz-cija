@@ -57,21 +57,6 @@ class Recipe:
                     return [item.text.strip() for item in ingredients_list_container.find_all("li")]
         return []
 
-def load_favorites():
-    try:
-        with open(FAVORITES_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return []
-    except json.JSONDecodeError:
-        print("Kļūda, atverot izlases failu. Tas var būt bojāts.")
-        return []
-
-
-def save_favorites(favorites):
-    with open(FAVORITES_FILE, "w", encoding="utf-8") as f:
-        json.dump(favorites, f, indent=4, ensure_ascii=False)
-
 
 class Category:
     def __init__(self, name, url):
@@ -144,6 +129,21 @@ def handle_recipe_selection(recipes, favorites):
         except ValueError:
             print("Lūdzu, ievadiet skaitli, 'f' vai 0.")
 
+
+def load_favorites():
+    try:
+        with open(FAVORITES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        print("Kļūda, atverot izlases failu. Tas var būt bojāts.")
+        return []
+
+
+def save_favorites(favorites):
+    with open(FAVORITES_FILE, "w", encoding="utf-8") as f:
+        json.dump(favorites, f, indent=4, ensure_ascii=False)
 
 
 def display_favorites(favorites):
