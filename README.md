@@ -17,7 +17,7 @@ apskatīt tās sastāvdaļas
 un saglabāt iecienītās receptes,
 neizmantojot pārlūkprogrammu un manuālu meklēšanu.
 
-Šajā projektā programma veic meklēšanu un informācijas savākšanu no vietnes ar receptēm Garšīga Latvija (garsigalatvija.lv).
+Šajā projektā programma veic meklēšanu un informācijas savākšanu no vietnes ar receptēm Garšīga Latvija <ins>(garsigalatvija.lv)</ins>.
 Lietotājam tiek piedāvāta iespēja izvēlēties dažādu veidu receptes — piemēram, brokastis, zupas, deserti un citas kategorijas.
 Pēc kategorijas izvēles programma automātiski atrod un parāda visas receptes šajā grupā.
 Lietotājs var apskatīt sastāvdaļas un veidot recepšu izlasi.
