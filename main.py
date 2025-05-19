@@ -6,15 +6,18 @@ import json
 
 FAVORITES_FILE = "favorites.json"
 
+# satur receptes nosaukumu, URL un sastāvdaļas
 class Recipe: 
     def __init__(self, title, url):
         self.title = title 
         self.url = url 
         self.ingredients = [] 
-        
+
+#  atgriezt receptes virsrakstu un URL kā tekstu
     def __str__(self):
         return f"{self.title} - {self.url}"
-    
+
+ # ielādē receptes lapu un atrod sastāvdaļas
     def fetch_ingredients(self):
         try:
             response = requests.get(self.url)
@@ -27,7 +30,9 @@ class Recipe:
         except requests.exceptions.RequestException as e:
             print(f"Neizdevās ielādēt recepti no {self.url}. Kļūda: {e}")
             return None
-        
+
+    
+     # meklē sastāvdaļas HTML lapā pēc dažādiem selektoriem
     def _extract_ingredients(self, soup):
         selectors = [
             (".et_pb_row_inner.et_pb_row_inner_2", ['ul', 'ol'], None), 
@@ -47,7 +52,8 @@ class Recipe:
                             ingredients.append(item.text.strip())
                 if ingredients:
                     return ingredients
-
+                    
+    # meklē sastāvdaļas pēc atslēgvārdiem, ja nav atrastas ar selektoriem
         keywords = ["Sastāvdaļas", "Ingredienti", "Kas nepieciešams"]
         for keyword in keywords:
             keyword_element = soup.find(lambda tag: tag.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div'] and keyword in tag.text) 
@@ -57,13 +63,14 @@ class Recipe:
                     return [item.text.strip() for item in ingredients_list_container.find_all("li")]
         return []
 
-
+# satur kategorijas nosaukumu, URL un receptes
 class Category:
     def __init__(self, name, url):
         self.name = name
         self.url = url
         self.recipes = []
 
+# ielādē visas receptes no kategorijas, izejot cauri lapām
     def get_recipes(self):
         self.recipes = []
         current_url = self.url
@@ -77,7 +84,8 @@ class Category:
                     title_link = card.find("a")
                     if title_link:
                         self.recipes.append(Recipe(title_link.text.strip(), title_link["href"]))
-
+          
+            # meklē saiti uz nākamo lapu ar receptēm
                 next_page_link = soup.find("a", string="« Older Entries")
                 if next_page_link and "href" in next_page_link.attrs:
                     current_url = next_page_link["href"]
@@ -87,7 +95,8 @@ class Category:
                 print(f"Neizdevās ielādēt lapu {current_url}. Kļūda: {e}")
                 break
         return self.recipes
-
+        
+# izvada receptes sarakstu uz ekrāna
 def display_recipes(recipes):
     if recipes:
         for i, recipe in enumerate(recipes, 1):
@@ -96,7 +105,8 @@ def display_recipes(recipes):
     else:
         print("Šajā kategorijā nav recepšu.")
         return False
-
+        
+# apstrādā lietotāja izvēli receptēm (skats, pievienošana izlasei)
 def handle_recipe_selection(recipes, favorites):
   selected_recipe = None  
   while recipes:
@@ -129,7 +139,7 @@ def handle_recipe_selection(recipes, favorites):
         except ValueError:
             print("Lūdzu, ievadiet skaitli, 'f' vai 0.")
 
-
+# ielādē saglabātās izlases no faila
 def load_favorites():
     try:
         with open(FAVORITES_FILE, "r", encoding="utf-8") as f:
@@ -140,12 +150,12 @@ def load_favorites():
         print("Kļūda, atverot izlases failu. Tas var būt bojāts.")
         return []
 
-
+# saglabā izlases sarakstu failā
 def save_favorites(favorites):
     with open(FAVORITES_FILE, "w", encoding="utf-8") as f:
         json.dump(favorites, f, indent=4, ensure_ascii=False)
 
-
+# izvada lietotāja izlases sarakstu uz ekrāna
 def display_favorites(favorites):
     if favorites:
         for i, favorite in enumerate(favorites, 1):
@@ -155,7 +165,7 @@ def display_favorites(favorites):
         print("Jūsu izlases saraksts ir tukšs.")
         return False
 
-
+# apstrādā lietotāja izvēli izlases sarakstā (skats, dzēšana)
 def handle_favorite_selection(favorites):
     while favorites:
         display_favorites(favorites)  
@@ -199,12 +209,13 @@ def handle_favorite_selection(favorites):
     if not favorites:
         print("Jūsu izlases saraksts ir tukšs.")
 
-
+# atgriež izvēlēto elementu no saraksta pēc lietotāja ievadītā numura
 def get_selected_item(items, choice):
     if isinstance(choice, int) and 1 <= choice <= len(items): 
         return items[choice - 1] 
     return None 
-        
+
+# kategoriju saraksts ar nosaukumiem un URL
 def main():
     categories = [
         Category("Brokastis", "https://www.garsigalatvija.lv/receptes/brokastis/"), 
