@@ -1,8 +1,8 @@
 # Automatiz-cija
 
-###Mūsu projektam mēs izvēlējāmies meklēšanas automatizāciju jeb **web scraping** — tehnoloģiju, kas ļauj automātiski savākt konkrētu informāciju no interneta vietnēm.
+### Mūsu projektam mēs izvēlējāmies meklēšanas automatizāciju jeb **web scraping** — tehnoloģiju, kas ļauj automātiski savākt konkrētu informāciju no interneta vietnēm.
 
-##Īss programmas apraksts:
+## Īss programmas apraksts:
 
 Šajā projektā **programma veic meklēšanu un informācijas savākšanu no vietnes** ar receptēm Garšīga Latvija (<ins>garsigalatvija.lv</ins>).
 Lietotājam tiek piedāvāta iespēja izvēlēties dažādu veidu receptes — piemēram, brokastis, zupas, deserti un citas kategorijas.
