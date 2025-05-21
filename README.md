@@ -26,13 +26,13 @@ neizmantojot pārlūkprogrammu un manuālu meklēšanu.
 
 ## Programmatūras izmantošanas metodes:
 
-1. Lietotājs ievada *izvēlēto kategorijas numuru* no saraksta (piemēram, **2** - Zupas).
+1. Lietotājs ievada **izvēlēto kategorijas numuru** no saraksta (piemēram, **2** - Zupas).
 2. Programma savāc un parāda sarakstu no visam receptiem izvelētajā kategorijā - numurēto sarakstu ar katra recepta nosaukumu un saiti uz to.
-3. Lietotājs var *izvēlēties receptes numuru* un ievadīt to, lai apskatītu tās sastāvdaļas.
-4. Kad receptes sastāvdaļas tiek rādītas, lietotājam tiek dota iespēja *pievienot šo recepti izlasei* (Favorites), ievadot burtu **f**.
-5. Izlase tiek saglabāta atsevišķā failā, un *tajā var piekļūt* jebkurā brīdī *no galvenā izvēlnes*, ievadot **0**.
-6. Izlasē lietotājs var apskatīt saglabātās receptes, skatīt to sastāvdaļas vai *dzēst receptes no izlases* ievadot burtu **d**.
-7. Programma nodrošina arī iespēju jebkurā brīdī *atgriezties pie kategoriju izvēles* vai *iziet no programmas*, ievadot **-1**.
+3. Lietotājs var **izvēlēties receptes numuru** un ievadīt to, lai apskatītu tās sastāvdaļas.
+4. Kad receptes sastāvdaļas tiek rādītas, lietotājam tiek dota iespēja **pievienot šo recepti izlasei** (Favorites), ievadot burtu **f**.
+5. Izlase tiek saglabāta atsevišķā failā, un **tajā var piekļūt** jebkurā brīdī **no galvenā izvēlnes**, ievadot **0**.
+6. Izlasē lietotājs var apskatīt saglabātās receptes, skatīt to sastāvdaļas vai **dzēst receptes no izlases** ievadot burtu **d**.
+7. Programma nodrošina arī iespēju jebkurā brīdī **atgriezties pie kategoriju izvēles** vai **iziet no programmas**, ievadot **-1**.
 
 ---
 
