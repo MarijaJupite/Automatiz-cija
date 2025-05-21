@@ -48,8 +48,13 @@ def display_recipes(recipes):
     else:
         print("Šajā kategorijā nav recepšu.")
         return False
-    
-
+        
+# atgriež izvēlēto elementu no saraksta pēc lietotāja ievadītā numura
+def get_selected_item(items, choice):
+    if isinstance(choice, int) and 1 <= choice <= len(items): 
+        return items[choice - 1] 
+    return None 
+        
 # satur receptes nosaukumu, URL un sastāvdaļas
 class Recipe: 
     def __init__(self, title, url):
@@ -117,12 +122,6 @@ def display_favorites(favorites):
         print("Jūsu izlases saraksts ir tukšs.")
         return False
 
-# atgriež izvēlēto elementu no saraksta pēc lietotāja ievadītā numura
-def get_selected_item(items, choice):
-    if isinstance(choice, int) and 1 <= choice <= len(items): 
-        return items[choice - 1] 
-    return None 
-        
 # ielādē saglabātās izlases no faila
 def load_favorites():
     try:
