@@ -1,7 +1,10 @@
 # Automatiz-cija
 
-Mūsu projektam mēs izvēlējāmies meklēšanas automatizāciju jeb web scraping — tehnoloģiju, kas ļauj automātiski savākt konkrētu informāciju no interneta vietnēm.
-Šajā projektā programma veic meklēšanu un informācijas savākšanu no vietnes ar receptēm Garšīga Latvija (garsigalatvija.lv).
+###Mūsu projektam mēs izvēlējāmies meklēšanas automatizāciju jeb **web scraping** — tehnoloģiju, kas ļauj automātiski savākt konkrētu informāciju no interneta vietnēm.
+
+##Īss programmas apraksts:
+
+Šajā projektā **programma veic meklēšanu un informācijas savākšanu no vietnes** ar receptēm Garšīga Latvija (<ins>garsigalatvija.lv</ins>).
 Lietotājam tiek piedāvāta iespēja izvēlēties dažādu veidu receptes — piemēram, brokastis, zupas, deserti un citas kategorijas.
 Pēc kategorijas izvēles programma automātiski atrod un parāda visas receptes šajā grupā.
 Lietotājs var apskatīt sastāvdaļas un veidot recepšu izlasi.
@@ -10,17 +13,12 @@ Lietotājs var apskatīt sastāvdaļas un veidot recepšu izlasi.
 
 ## Projekta uzdevums:
 
-Galvenais projekta uzdevums ir izveidot ērtu automatizētu rīku,
+Galvenais projekta uzdevums ir izveidot <ins>ērtu automatizētu rīku</ins>,
 kas atvieglo recepšu meklēšanu un piekļuvi informācijai,
 un ļauj lietotājam ātri atrast vajadzīgo recepti,
 apskatīt tās sastāvdaļas
 un saglabāt iecienītās receptes,
 neizmantojot pārlūkprogrammu un manuālu meklēšanu.
-
-Šajā projektā programma veic meklēšanu un informācijas savākšanu no vietnes ar receptēm Garšīga Latvija <ins>(garsigalatvija.lv)</ins>.
-Lietotājam tiek piedāvāta iespēja izvēlēties dažādu veidu receptes — piemēram, brokastis, zupas, deserti un citas kategorijas.
-Pēc kategorijas izvēles programma automātiski atrod un parāda visas receptes šajā grupā.
-Lietotājs var apskatīt sastāvdaļas un veidot recepšu izlasi.
 
 ---
 
@@ -38,18 +36,18 @@ Lietotājs var apskatīt sastāvdaļas un veidot recepšu izlasi.
 
 ## Python bibliotēkas, izmantotas projekta izstrādes laikā:
 
-* `requests` — nepieciešama, lai lejupielādētu tīmekļa lapas no interneta.
+* 'requests' — nepieciešama, lai lejupielādētu tīmekļa lapas no interneta.
   Mūsu kodā to izmantojam, lai ielādētu receptes no vietnes garsigalatvija.lv un pārvietotos starp kategorijām un recepšu lapām.
 
-* `BeautifulSoup` (no `bs4`) — tiek lietota HTML koda parsēšanai un nepieciešamās informācijas iegūšanai.
+* 'BeautifulSoup' (no 'bs4') — tiek lietota HTML koda parsēšanai un nepieciešamās informācijas iegūšanai.
   Mēs izmantojam šo bibliotēku, lai no lapas iegūtu recepšu nosaukumus, saites un sastāvdaļu sarakstu.
 
-* 'json' — tiek izmantots, lai saglabātu un ielādētu iecienītās receptes failā `favorites.json`.
+* 'json' — tiek izmantots, lai saglabātu un ielādētu iecienītās receptes failā 'favorites.json'.
   Tas ļauj lietotājam saglabāt patikušās receptes un skatīt tās vēlāk.
 
 ---
 
-## Izmantotas definētas datu struktūras - klases `Recipe` un `Category`:
+## Izmantotas definētas datu struktūras - klases 'Category' un 'Recipe':
 
-* `Recipe` — satur receptes nosaukumu, saiti uz to un sastāvdaļu sarakstu.
-* `Category` — satur kategorijas nosaukumu un adresi lapai ar šīs kategorijas receptēm.
+* 'Category' — satur kategorijas nosaukumu un adresi lapai ar šīs kategorijas receptēm.
+* 'Recipe' — satur receptes nosaukumu, saiti uz to un sastāvdaļu sarakstu.
