@@ -4,7 +4,7 @@
 
 # Automatizācija
 ---
-## Īss programmas apraksts:
+## Īss apraksts:
 ### Mūsu projektam mēs izvēlējāmies meklēšanas automatizāciju jeb **web scraping** — tehnoloģiju, kas ļauj automātiski savākt konkrētu informāciju no interneta vietnēm.
 
 **Programma veic meklēšanu un informācijas savākšanu no vietnes** ar receptēm **[Garšīga Latvija](https://www.garsigalatvija.lv/)**.
