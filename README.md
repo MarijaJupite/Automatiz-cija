@@ -3,12 +3,11 @@
 241RDB067 Marija Jupite 5. grupa
 
 # Automatizācija
-
+---
+## Īss programmas apraksts:
 ### Mūsu projektam mēs izvēlējāmies meklēšanas automatizāciju jeb **web scraping** — tehnoloģiju, kas ļauj automātiski savākt konkrētu informāciju no interneta vietnēm.
 
-## Īss programmas apraksts:
-
-Šajā projektā **programma veic meklēšanu un informācijas savākšanu no vietnes** ar receptēm [Garšīga Latvija](https://www.garsigalatvija.lv/).
+**Programma veic meklēšanu un informācijas savākšanu no vietnes** ar receptēm **[Garšīga Latvija](https://www.garsigalatvija.lv/)**.
 Lietotājam tiek piedāvāta iespēja izvēlēties dažādu veidu receptes — piemēram, brokastis, zupas, deserti un citas kategorijas.
 Pēc kategorijas izvēles programma automātiski atrod un parāda visas receptes šajā grupā.
 Lietotājs var apskatīt sastāvdaļas un veidot recepšu izlasi.
@@ -17,24 +16,23 @@ Lietotājs var apskatīt sastāvdaļas un veidot recepšu izlasi.
 
 ## Projekta uzdevums:
 
-Galvenais projekta uzdevums ir izveidot <ins>ērtu automatizētu rīku</ins>,
-kas atvieglo recepšu meklēšanu un piekļuvi informācijai,
-un ļauj lietotājam ātri atrast vajadzīgo recepti,
-apskatīt tās sastāvdaļas
-un saglabāt iecienītās receptes,
+Galvenais projekta uzdevums ir **izveidot ērtu automatizētu rīku**,
+kas ļauj lietotājam ātri **atrast** vajadzīgo recepti,
+**apskatīt** tās sastāvdaļas
+un **saglabāt** iecienītās receptes,
 neizmantojot pārlūkprogrammu un manuālu meklēšanu.
 
 ---
 
 ## Programmatūras izmantošanas metodes:
 
-1. Lietotājs ievada izvēlēto kategorijas numuru (piemēram, 2 - Zupas).
-2. Programma automātiski savāc un parāda sarakstu no katras šīs kategorijas receptes ar tā nosaukumu un saiti uz to konkrēto recepti.
-3. Lietotājs var izvēlēties receptes numuru, lai apskatītu tās sastāvdaļas.
-4. Kad receptes sastāvdaļas tiek rādītas, lietotājam tiek dota iespēja pievienot šo recepti Favorites (izlasei), ievadot komandu 'f'.
-5. Favorites (izlasē) tiek saglabāta atsevišķā failā, un tajā var piekļūt jebkurā brīdī no galvenā izvēlnes, ievadot 0.
-6. Favorites (izlasē) lietotājs var apskatīt saglabātās receptes, skatīt to sastāvdaļas vai dzēst receptes no Favorites (izlasē).
-7. Programma nodrošina arī iespēju jebkurā brīdī atgriezties pie kategoriju izvēles vai iziet no programmas, ievadot -1.
+1. Lietotājs ievada *izvēlēto kategorijas numuru* no saraksta (piemēram, **2** - Zupas).
+2. Programma savāc un parāda sarakstu no visam receptiem izvelētajā kategorijā - numurēto sarakstu ar katra recepta nosaukumu un saiti uz to.
+3. Lietotājs var *izvēlēties receptes numuru* un ievadīt to, lai apskatītu tās sastāvdaļas.
+4. Kad receptes sastāvdaļas tiek rādītas, lietotājam tiek dota iespēja *pievienot šo recepti izlasei* (Favorites), ievadot burtu **f**.
+5. Izlase tiek saglabāta atsevišķā failā, un *tajā var piekļūt* jebkurā brīdī *no galvenā izvēlnes*, ievadot **0**.
+6. Izlasē lietotājs var apskatīt saglabātās receptes, skatīt to sastāvdaļas vai *dzēst receptes no izlases* ievadot burtu **d**.
+7. Programma nodrošina arī iespēju jebkurā brīdī *atgriezties pie kategoriju izvēles* vai *iziet no programmas*, ievadot **-1**.
 
 ---
 
