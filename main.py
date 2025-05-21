@@ -80,7 +80,6 @@ class Recipe:
             print(f"Neizdevās ielādēt recepti no {self.url}. Kļūda: {e}")
             return None
 
-    
      # meklē sastāvdaļas HTML lapā pēc dažādiem selektoriem
     def _extract_ingredients(self, soup):
         selectors = [
