@@ -1,4 +1,5 @@
 241RDB126 Darja Kučerenko 1.grupa
+
 241RDB067 Marija Jupite 5. grupa
 
 # Automatizācija
