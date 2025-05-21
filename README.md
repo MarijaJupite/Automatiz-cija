@@ -1,4 +1,7 @@
-# Automatiz-cija
+241RDB126 Darja Kučerenko 1.grupa
+241RDB067 Marija Jupite 5. grupa
+
+# Automatizācija
 
 ### Mūsu projektam mēs izvēlējāmies meklēšanas automatizāciju jeb **web scraping** — tehnoloģiju, kas ļauj automātiski savākt konkrētu informāciju no interneta vietnēm.
 
